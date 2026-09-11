@@ -2,12 +2,12 @@
 
 > **One fast, searchable, AI-enhanced hub for everything a developer stashes:** snippets, prompts, commands, notes, links, and files.
 
-| | |
-|---|---|
-| **Status** | Planning / pre-build |
-| **Type** | Freemium SaaS (B2C, single-tenant per user) |
-| **Stack** | Next.js 16 · React 19 · TypeScript · Postgres (Neon) · Prisma 7 · Auth.js v5 · Tailwind v4 + shadcn/ui |
-| **Last updated** | September 2026 |
+|                  |                                                                                                        |
+| ---------------- | ------------------------------------------------------------------------------------------------------ |
+| **Status**       | Planning / pre-build                                                                                   |
+| **Type**         | Freemium SaaS (B2C, single-tenant per user)                                                            |
+| **Stack**        | Next.js 16 · React 19 · TypeScript · Postgres (Neon) · Prisma 7 · Auth.js v5 · Tailwind v4 + shadcn/ui |
+| **Last updated** | September 2026                                                                                         |
 
 ---
 
@@ -15,15 +15,15 @@
 
 Developers keep their essentials scattered across a dozen places:
 
-| Asset | Where it usually lives |
-|---|---|
-| Code snippets | VS Code, Notion |
-| AI prompts | Buried in chat histories |
-| Context files | Random project folders |
-| Useful links | Browser bookmarks |
-| Docs | Downloads folder |
-| Commands | `notes.txt`, `.bash_history` |
-| Boilerplates | GitHub gists |
+| Asset         | Where it usually lives       |
+| ------------- | ---------------------------- |
+| Code snippets | VS Code, Notion              |
+| AI prompts    | Buried in chat histories     |
+| Context files | Random project folders       |
+| Useful links  | Browser bookmarks            |
+| Docs          | Downloads folder             |
+| Commands      | `notes.txt`, `.bash_history` |
+| Boilerplates  | GitHub gists                 |
 
 The result is **context switching, lost knowledge, and inconsistent workflows**. DevStash consolidates all of it into a single searchable surface with AI on top.
 
@@ -31,14 +31,14 @@ The result is **context switching, lost knowledge, and inconsistent workflows**.
 
 ## 2. 👥 Users
 
-| Persona | Primary need | Types they lean on |
-|---|---|---|
-| **Everyday Developer** | Grab snippets, commands, links fast | Snippet, Command, Link |
-| **AI-first Developer** | Store prompts, contexts, system messages, workflows | Prompt, File, Note |
-| **Content Creator / Educator** | Reusable code blocks, explanations, course notes | Snippet, Note |
-| **Full-stack Builder** | Patterns, boilerplates, API examples | Snippet, File, Link |
+| Persona                        | Primary need                                        | Types they lean on     |
+| ------------------------------ | --------------------------------------------------- | ---------------------- |
+| **Everyday Developer**         | Grab snippets, commands, links fast                 | Snippet, Command, Link |
+| **AI-first Developer**         | Store prompts, contexts, system messages, workflows | Prompt, File, Note     |
+| **Content Creator / Educator** | Reusable code blocks, explanations, course notes    | Snippet, Note          |
+| **Full-stack Builder**         | Patterns, boilerplates, API examples                | Snippet, File, Link    |
 
-**Common thread:** everyone wants *sub-second retrieval*. Search and the quick-open drawer are the core product, not side features.
+**Common thread:** everyone wants _sub-second retrieval_. Search and the quick-open drawer are the core product, not side features.
 
 ---
 
@@ -48,27 +48,28 @@ The result is **context switching, lost knowledge, and inconsistent workflows**.
 
 Every item has exactly one **type**. Ship with seven immutable system types; user-defined custom types come later (Pro).
 
-| Type | Content kind | Color | Icon (lucide) | Tier |
-|---|---|---|---|---|
-| Snippet | `TEXT` | `#3b82f6` 🔵 blue | `Code` | Free |
-| Prompt | `TEXT` | `#8b5cf6` 🟣 purple | `Sparkles` | Free |
-| Command | `TEXT` | `#f97316` 🟠 orange | `Terminal` | Free |
-| Note | `TEXT` | `#fde047` 🟡 yellow | `StickyNote` | Free |
-| Link | `URL` | `#10b981` 🟢 emerald | `Link` | Free |
-| File | `FILE` | `#6b7280` ⚪ gray | `File` | **Pro** |
-| Image | `FILE` | `#ec4899` 🩷 pink | `Image` | **Pro** |
+| Type    | Content kind | Color                | Icon (lucide) | Tier    |
+| ------- | ------------ | -------------------- | ------------- | ------- |
+| Snippet | `TEXT`       | `#3b82f6` 🔵 blue    | `Code`        | Free    |
+| Prompt  | `TEXT`       | `#8b5cf6` 🟣 purple  | `Sparkles`    | Free    |
+| Command | `TEXT`       | `#f97316` 🟠 orange  | `Terminal`    | Free    |
+| Note    | `TEXT`       | `#fde047` 🟡 yellow  | `StickyNote`  | Free    |
+| Link    | `URL`        | `#10b981` 🟢 emerald | `Link`        | Free    |
+| File    | `FILE`       | `#6b7280` ⚪ gray    | `File`        | **Pro** |
+| Image   | `FILE`       | `#ec4899` 🩷 pink    | `Image`       | **Pro** |
 
 > ⚠️ **Spec conflict to resolve:** the notes describe three content kinds (text / url / file) but the `ITEM` model lists only `contentType (text | file)`. The schema below uses a three-value enum — `TEXT | FILE | URL` — since Link items store a `url` and no `content` or `fileUrl`.
 
 > 🟡 **Accessibility note:** `#fde047` (Note yellow) fails contrast against a light background and is borderline on dark. Consider a slightly deeper `#eab308` for text/borders while keeping the bright yellow for fills.
 
 **Behavior**
+
 - Items are created and opened in a **quick-access drawer**, never a full page navigation.
 - Type listing routes are slug-based: `/items/snippets`, `/items/prompts`, `/items/commands`, …
 
 ### B. Collections
 
-User-defined groupings that can hold items of **any** type. Many-to-many: a React snippet can live in both *React Patterns* and *Interview Prep*.
+User-defined groupings that can hold items of **any** type. Many-to-many: a React snippet can live in both _React Patterns_ and _Interview Prep_.
 
 - `defaultTypeId` seeds the "new item" form for empty collections.
 - Collection card background color = the color of its **most common item type**; ties break toward the most recently added item's type.
@@ -91,30 +92,30 @@ Filterable by type, collection, favorite, and pinned state. See [§6 Search impl
 
 ### E. Quality-of-life
 
-| Feature | Notes |
-|---|---|
-| ⭐ Favorites | On both items and collections |
-| 📌 Pin to top | Items only |
-| 🕘 Recently used | Requires a `lastUsedAt` timestamp — **missing from the original data model**, added below |
-| 📥 Import code from file | Reads a local file into a text item |
-| ✍️ Markdown editor | For all `TEXT` types, with syntax-highlighted code blocks |
-| 📎 File upload | `FILE` types only (Pro) |
-| 📤 Export | JSON / ZIP (Pro) |
-| 🌙 Dark mode | Default; light mode optional |
-| 🗂️ Multi-collection membership | Add/remove from many collections; item detail shows every collection it belongs to |
+| Feature                        | Notes                                                                                     |
+| ------------------------------ | ----------------------------------------------------------------------------------------- |
+| ⭐ Favorites                   | On both items and collections                                                             |
+| 📌 Pin to top                  | Items only                                                                                |
+| 🕘 Recently used               | Requires a `lastUsedAt` timestamp — **missing from the original data model**, added below |
+| 📥 Import code from file       | Reads a local file into a text item                                                       |
+| ✍️ Markdown editor             | For all `TEXT` types, with syntax-highlighted code blocks                                 |
+| 📎 File upload                 | `FILE` types only (Pro)                                                                   |
+| 📤 Export                      | JSON / ZIP (Pro)                                                                          |
+| 🌙 Dark mode                   | Default; light mode optional                                                              |
+| 🗂️ Multi-collection membership | Add/remove from many collections; item detail shows every collection it belongs to        |
 
 ### F. AI Features (Pro)
 
-| Feature | Input | Output |
-|---|---|---|
-| Auto-tag suggestions | Title + content | 3–5 suggested tags the user accepts/rejects |
-| Summaries | Long text item | 1–2 sentence description written to `description` |
-| Explain This Code | Snippet + `language` | Plain-English walkthrough |
-| Prompt Optimizer | Prompt item | Rewritten, sharper prompt |
+| Feature              | Input                | Output                                            |
+| -------------------- | -------------------- | ------------------------------------------------- |
+| Auto-tag suggestions | Title + content      | 3–5 suggested tags the user accepts/rejects       |
+| Summaries            | Long text item       | 1–2 sentence description written to `description` |
+| Explain This Code    | Snippet + `language` | Plain-English walkthrough                         |
+| Prompt Optimizer     | Prompt item          | Rewritten, sharper prompt                         |
 
 Model: **OpenAI `gpt-5-nano`**. All calls go through internal API routes — never expose the key client-side.
 
-> 💡 **Suggestion:** every AI action should be *non-destructive*. Write results to a staging field or show a diff, and let the user accept. Silently overwriting a user's saved prompt is the fastest way to lose trust.
+> 💡 **Suggestion:** every AI action should be _non-destructive_. Write results to a staging field or show a diff, and let the user accept. Silently overwriting a user's saved prompt is the fastest way to lose trust.
 
 ---
 
@@ -202,15 +203,15 @@ erDiagram
 
 ### Changes made to the original sketch
 
-| # | Change | Why |
-|---|---|---|
-| 1 | `contentType` enum extended to `TEXT \| FILE \| URL` | Link items are neither text nor file |
-| 2 | Added `Item.lastUsedAt` | "Recently used" has no data behind it otherwise |
-| 3 | Added `ItemTag` join table | `TAG` was listed with no relation; tags are many-to-many |
-| 4 | Scoped `Tag` to a user (`@@unique([userId, name])`) | Global tags leak one user's vocabulary into another's autocomplete |
-| 5 | Added `ItemType.slug` and `ItemType.contentType` | Slug drives `/items/[slug]`; contentType tells the editor which form to render |
-| 6 | Added Stripe `priceId` + `currentPeriodEnd` on User | `isPro` alone can't tell you *when* access lapses or which plan they're on |
-| 7 | Explicit `onDelete` rules + composite indexes | Every query is user-scoped; unindexed it degrades fast |
+| #   | Change                                               | Why                                                                            |
+| --- | ---------------------------------------------------- | ------------------------------------------------------------------------------ |
+| 1   | `contentType` enum extended to `TEXT \| FILE \| URL` | Link items are neither text nor file                                           |
+| 2   | Added `Item.lastUsedAt`                              | "Recently used" has no data behind it otherwise                                |
+| 3   | Added `ItemTag` join table                           | `TAG` was listed with no relation; tags are many-to-many                       |
+| 4   | Scoped `Tag` to a user (`@@unique([userId, name])`)  | Global tags leak one user's vocabulary into another's autocomplete             |
+| 5   | Added `ItemType.slug` and `ItemType.contentType`     | Slug drives `/items/[slug]`; contentType tells the editor which form to render |
+| 6   | Added Stripe `priceId` + `currentPeriodEnd` on User  | `isPro` alone can't tell you _when_ access lapses or which plan they're on     |
+| 7   | Explicit `onDelete` rules + composite indexes        | Every query is user-scoped; unindexed it degrades fast                         |
 
 ### Prisma schema
 
@@ -520,10 +521,10 @@ sequenceDiagram
 
 Search spans title, content, tags, and type. Two viable approaches:
 
-| Approach | Good for | Trade-off |
-|---|---|---|
-| **`ILIKE` + `pg_trgm`** | MVP, fuzzy/typo tolerance, short corpus | Slows down past ~10k rows per user |
-| **`tsvector` + GIN** | Ranked full-text, scales well | Needs a generated column + raw SQL migration |
+| Approach                | Good for                                | Trade-off                                    |
+| ----------------------- | --------------------------------------- | -------------------------------------------- |
+| **`ILIKE` + `pg_trgm`** | MVP, fuzzy/typo tolerance, short corpus | Slows down past ~10k rows per user           |
+| **`tsvector` + GIN**    | Ranked full-text, scales well           | Needs a generated column + raw SQL migration |
 
 **Recommendation:** start with `pg_trgm` for speed of delivery, then add a generated `tsvector` column when item counts justify it. Prisma's `@@fulltext` attribute is **MySQL-only**, so either path needs raw SQL in a migration.
 
@@ -548,21 +549,21 @@ Query via `prisma.$queryRaw`, always scoped by `userId`.
 
 ## 7. 🧭 Routing
 
-| Route | Purpose |
-|---|---|
-| `/` | Marketing / landing |
-| `/login`, `/register` | Auth |
-| `/dashboard` | Collection grid + recent items |
-| `/items` | All items |
-| `/items/[typeSlug]` | `/items/snippets`, `/items/prompts`, … |
-| `/collections` | All collections |
-| `/collections/[id]` | Single collection |
-| `/search?q=` | Full search results |
-| `/settings` | Profile, theme, export |
-| `/settings/billing` | Stripe portal |
-| `/api/upload` | R2 presigned upload |
-| `/api/ai/*` | tag · summarize · explain · optimize |
-| `/api/stripe/webhook` | Subscription lifecycle |
+| Route                 | Purpose                                |
+| --------------------- | -------------------------------------- |
+| `/`                   | Marketing / landing                    |
+| `/login`, `/register` | Auth                                   |
+| `/dashboard`          | Collection grid + recent items         |
+| `/items`              | All items                              |
+| `/items/[typeSlug]`   | `/items/snippets`, `/items/prompts`, … |
+| `/collections`        | All collections                        |
+| `/collections/[id]`   | Single collection                      |
+| `/search?q=`          | Full search results                    |
+| `/settings`           | Profile, theme, export                 |
+| `/settings/billing`   | Stripe portal                          |
+| `/api/upload`         | R2 presigned upload                    |
+| `/api/ai/*`           | tag · summarize · explain · optimize   |
+| `/api/stripe/webhook` | Subscription lifecycle                 |
 
 **Drawer pattern:** individual items open in a drawer over the current page. Use a **URL search param** (`?item=<id>`) rather than pure local state, so items are linkable, shareable, and back-button friendly. Next.js parallel + intercepting routes are the alternative — heavier, but gives a real page on direct load.
 
@@ -570,26 +571,27 @@ Query via `prisma.$queryRaw`, always scoped by `userId`.
 
 ## 8. 🧰 Tech Stack
 
-| Layer | Choice | Docs |
-|---|---|---|
-| Framework | Next.js 16 (App Router, Turbopack default) | [nextjs.org/docs](https://nextjs.org/docs) |
-| UI runtime | React 19 | [react.dev](https://react.dev) |
-| Language | TypeScript (strict) | [typescriptlang.org/docs](https://www.typescriptlang.org/docs/) |
-| Database | Neon serverless Postgres | [neon.com/docs](https://neon.com/docs) |
-| ORM | Prisma 7 | [prisma.io/docs](https://www.prisma.io/docs) |
-| Auth | Auth.js v5 (NextAuth) | [authjs.dev](https://authjs.dev) |
-| File storage | Cloudflare R2 (S3-compatible) | [developers.cloudflare.com/r2](https://developers.cloudflare.com/r2/) |
-| Payments | Stripe Subscriptions | [docs.stripe.com/billing](https://docs.stripe.com/billing) |
-| AI | OpenAI `gpt-5-nano` | [platform.openai.com/docs](https://platform.openai.com/docs) |
-| Styling | Tailwind CSS v4 | [tailwindcss.com/docs](https://tailwindcss.com/docs) |
-| Components | shadcn/ui | [ui.shadcn.com](https://ui.shadcn.com) |
-| Icons | lucide-react | [lucide.dev/icons](https://lucide.dev/icons/) |
-| Cache / rate limit | Upstash Redis *(optional)* | [upstash.com/docs/redis](https://upstash.com/docs/redis) |
-| Editor | CodeMirror 6 or Monaco | [codemirror.net/docs](https://codemirror.net/docs/) |
-| Highlighting | Shiki | [shiki.style](https://shiki.style) |
-| Validation | Zod | [zod.dev](https://zod.dev) |
+| Layer              | Choice                                     | Docs                                                                  |
+| ------------------ | ------------------------------------------ | --------------------------------------------------------------------- |
+| Framework          | Next.js 16 (App Router, Turbopack default) | [nextjs.org/docs](https://nextjs.org/docs)                            |
+| UI runtime         | React 19                                   | [react.dev](https://react.dev)                                        |
+| Language           | TypeScript (strict)                        | [typescriptlang.org/docs](https://www.typescriptlang.org/docs/)       |
+| Database           | Neon serverless Postgres                   | [neon.com/docs](https://neon.com/docs)                                |
+| ORM                | Prisma 7                                   | [prisma.io/docs](https://www.prisma.io/docs)                          |
+| Auth               | Auth.js v5 (NextAuth)                      | [authjs.dev](https://authjs.dev)                                      |
+| File storage       | Cloudflare R2 (S3-compatible)              | [developers.cloudflare.com/r2](https://developers.cloudflare.com/r2/) |
+| Payments           | Stripe Subscriptions                       | [docs.stripe.com/billing](https://docs.stripe.com/billing)            |
+| AI                 | OpenAI `gpt-5-nano`                        | [platform.openai.com/docs](https://platform.openai.com/docs)          |
+| Styling            | Tailwind CSS v4                            | [tailwindcss.com/docs](https://tailwindcss.com/docs)                  |
+| Components         | shadcn/ui                                  | [ui.shadcn.com](https://ui.shadcn.com)                                |
+| Icons              | lucide-react                               | [lucide.dev/icons](https://lucide.dev/icons/)                         |
+| Cache / rate limit | Upstash Redis _(optional)_                 | [upstash.com/docs/redis](https://upstash.com/docs/redis)              |
+| Editor             | CodeMirror 6 or Monaco                     | [codemirror.net/docs](https://codemirror.net/docs/)                   |
+| Highlighting       | Shiki                                      | [shiki.style](https://shiki.style)                                    |
+| Validation         | Zod                                        | [zod.dev](https://zod.dev)                                            |
 
 **Notes**
+
 - Next.js 16 makes caching **explicit** via `"use cache"` — nothing is implicitly cached. Plan cache boundaries deliberately for the sidebar and collection grid.
 - Prisma 7 on Neon requires the `@prisma/adapter-pg` driver adapter; there's also a Neon-specific adapter worth benchmarking.
 - **Prefer Server Actions over API routes** for CRUD. Reserve route handlers for uploads, AI calls, and webhooks (things needing a real HTTP contract or raw body).
@@ -600,20 +602,20 @@ Query via `prisma.$queryRaw`, always scoped by `userId`.
 
 Freemium, single Pro tier.
 
-| | **Free** | **Pro — $8/mo · $72/yr** |
-|---|---|---|
-| Items | 50 | ♾️ Unlimited |
-| Collections | 3 | ♾️ Unlimited |
-| System types | All except File & Image | All |
-| File / image upload | ❌ | ✅ |
-| Search | Basic | Basic *(same for now)* |
-| AI auto-tagging | ❌ | ✅ |
-| AI summaries | ❌ | ✅ |
-| AI explain code | ❌ | ✅ |
-| Prompt optimizer | ❌ | ✅ |
-| Custom types | ❌ | ✅ *(later release)* |
-| Export (JSON/ZIP) | ❌ | ✅ |
-| Support | Community | Priority |
+|                     | **Free**                | **Pro — $8/mo · $72/yr** |
+| ------------------- | ----------------------- | ------------------------ |
+| Items               | 50                      | ♾️ Unlimited             |
+| Collections         | 3                       | ♾️ Unlimited             |
+| System types        | All except File & Image | All                      |
+| File / image upload | ❌                      | ✅                       |
+| Search              | Basic                   | Basic _(same for now)_   |
+| AI auto-tagging     | ❌                      | ✅                       |
+| AI summaries        | ❌                      | ✅                       |
+| AI explain code     | ❌                      | ✅                       |
+| Prompt optimizer    | ❌                      | ✅                       |
+| Custom types        | ❌                      | ✅ _(later release)_     |
+| Export (JSON/ZIP)   | ❌                      | ✅                       |
+| Support             | Community               | Priority                 |
 
 **Annual price = $72 → 25% off ($6/mo effective).** Worth surfacing that discount explicitly on the pricing page.
 
@@ -630,12 +632,20 @@ Freemium, single Pro tier.
 ## 10. 🎨 UI/UX
 
 ### Principles
+
 - Modern, minimal, developer-focused
 - **Dark mode by default**, light optional
 - Clean typography, generous whitespace
 - Subtle borders and shadows over heavy chrome
 - References: **Notion · Linear · Raycast**
 - Syntax highlighting everywhere code appears
+
+### Screenshots
+
+Refer to the screenshots below as a base for the dashboard UI. It does not have to be exact. Use it as a reference:
+
+- @context/screenshots/dashboard-ui-main.png
+- @context/screenshots/dashboard-ui-drawer.png
 
 ### Layout
 
@@ -664,11 +674,13 @@ Freemium, single Pro tier.
 - **Drawer:** items open in a right-side drawer for view/edit — fast in, fast out.
 
 ### Responsive
+
 - Desktop-first, fully usable on mobile
 - Sidebar collapses into a mobile drawer
 - Collection grid: 3 col → 2 col → 1 col
 
 ### Micro-interactions
+
 - Smooth transitions (respect `prefers-reduced-motion`)
 - Hover states on all cards
 - Toast notifications for every mutation
@@ -694,7 +706,7 @@ flowchart LR
     P1 --> P2 --> P3 --> P4 --> P5 --> P6 --> P7 --> P8
 ```
 
-Ship phases 1–4 as a usable free product before touching AI or payments. The core loop — *stash it, find it, copy it* — has to feel fast before anything else matters.
+Ship phases 1–4 as a usable free product before touching AI or payments. The core loop — _stash it, find it, copy it_ — has to feel fast before anything else matters.
 
 ---
 
@@ -708,7 +720,7 @@ Ship phases 1–4 as a usable free product before touching AI or payments. The c
 6. **Collection dominant color on ties.** Two types tied at 5 items each — what wins?
 7. **`isPro` source of truth.** Read the boolean, or derive from `stripeCurrentPeriodEnd > now()`? Deriving is more reliable but slower; a cached boolean synced by webhook is the usual compromise.
 8. **Redis.** Marked "maybe" — decide now. It's the natural home for AI rate limiting, which is a launch-blocker for cost control.
-9. **Export scope.** Does JSON export include file *contents* (ZIP) or just R2 URLs that expire?
+9. **Export scope.** Does JSON export include file _contents_ (ZIP) or just R2 URLs that expire?
 
 ---
 
