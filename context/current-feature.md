@@ -1,18 +1,26 @@
 # Current Feature
 
-<!-- Feature name and short description -->
+Dashboard UI — Phase 1 (of 3): base layout, shadcn/ui setup, and the `/dashboard` route.
 
 ## Status
 
-<!-- Not Started | In Progress | Completed -->
+In Progress
 
 ## Goals
 
-<!-- Goals and requirements -->
+- ShadCN UI initialization and components
+- ShadCN component installation
+- Dashboard route at /dashboard
+- Main dashboard layout and any global styles
+- Dark mode by default
+- Top bar with search and new item button (display only)
+- Placeholder for sidebar and main area. Just add an h2 with "Sidebar" and "Main" for now.
 
 ## Notes
 
-<!-- Any extra notes -->
+- Full spec: @context/features/dashboard-phase-1-spec.md
+- References: @context/screenshots/dashboard-ui-main.png, @context/project-overview.md, @src/lib/mock-data.ts
+- Phase 1 of 3 — phases 2 and 3 specs already exist at @context/features/dashboard-phase-2-spec.md and @context/features/dashboard-phase-3-spec.md
 
 ## History
 
