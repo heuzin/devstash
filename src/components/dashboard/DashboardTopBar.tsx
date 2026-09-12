@@ -2,10 +2,11 @@ import { Layers, Plus, Search } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { SidebarToggleButton } from "@/components/dashboard/SidebarToggleButton";
 
 /**
- * Top bar for the dashboard: brand, search, and the new item action.
- * Display only for now — no search or item creation behavior yet.
+ * Top bar for the dashboard: brand, sidebar toggle, search, and the new
+ * item action. Search and item creation are display only for now.
  */
 export function DashboardTopBar() {
   return (
@@ -14,6 +15,8 @@ export function DashboardTopBar() {
         <Layers className="size-5 text-primary" />
         DevStash
       </div>
+
+      <SidebarToggleButton />
 
       <div className="relative flex-1 max-w-xl">
         <Search className="absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
